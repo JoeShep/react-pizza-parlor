@@ -1,0 +1,4 @@
+.crusts--items {
+  display: flex;
+  flex-direction: column;
+}

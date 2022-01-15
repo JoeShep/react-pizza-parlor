@@ -1,0 +1,19 @@
+.menuHead {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5em;
+}
+
+.menu--list {
+  background-color: tomato;
+  padding: 1em;
+  border-radius: 5px;
+}
