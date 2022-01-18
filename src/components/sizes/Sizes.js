@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
-export const Sizes = () => {
+export const Sizes = ( { selectedValue, setSelectedValue }) => {
 
   const [sizes, changeSizes] = useState([]) //return an array with an initial state value and a function for changing that state
 
-  const [selectedValue, setSelectedValue] = useState(null)
+
 
   // This is like an event listener
   useEffect( () => {
@@ -17,15 +17,28 @@ export const Sizes = () => {
   return (
     <div className='menu--list sizes'>
       <h2>Sizes</h2>
-      <select>
-        <option value={selectedValue}>select a size</option>
-        {sizes.map( (size) => 
-          <option id={`size--${size.id}`} key={size.id} value={size.id}>
-          {size.circumference}
-          </option>
+      <select
+        onChange={
+          (event) => {
+            const intValueOfUserSelection = parseInt( event.target.value )
+            setSelectedValue( intValueOfUserSelection )
+          }
+        }
+
+        value={ selectedValue }
+
+        >
+        <option value={0} >select a size</option>
+        {sizes.map(
+
+          (size) =>
+            <option id={`size--${size.id}`} key={size.id} value={size.id}>
+            {size.circumference}
+            </option>
         )}
+
       </select>
     </div>
   )
-  
+
 }

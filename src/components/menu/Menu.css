@@ -6,7 +6,8 @@ ul {
   list-style: none;
 }
 
-.menu {
+.menu,
+.button-section {
   display: flex;
   justify-content: space-between;
   padding: 0 5em;
@@ -17,3 +18,5 @@ ul {
   padding: 1em;
   border-radius: 5px;
 }
+
+
