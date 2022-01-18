@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./Toppings.css"
 
-export const ToppingsList = () => {
+export const ToppingsList = ({selectOrderTopping, selectedToppings}) => {
 
   const [toppings, changeToppings] = useState([]) //return an array with an initial state value and a function for changing that state
 
@@ -19,7 +19,9 @@ export const ToppingsList = () => {
       <div className='toppings--items'>
         {toppings.map( topping => 
           <label htmlFor={`topping--${topping.id}`} key={topping.id}>
-            <input type="checkbox" id={`topping--${topping.id}`}/>
+            <input type="checkbox" id={`topping--${topping.id}`} onChange={() => selectOrderTopping(topping.id)} 
+              checked={selectedToppings.includes(topping.id) ? true : false}
+            />
             {topping.name}
           </label>
         )}
