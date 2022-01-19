@@ -7,7 +7,7 @@ export const ApplicationViews = () => {
   return (
     <>
       <Route exact path="/">
-        <Menu />
+          <Menu />
       </Route>
       <Route path="/menu">
           <Menu />

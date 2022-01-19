@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { ToppingsList } from "../toppings/ToppingsList";
 import { Crusts } from "../crusts/Crusts";
 import { Sizes } from "../sizes/Sizes";
@@ -9,6 +10,8 @@ export const Menu = () => {
   const [ selectedValue, setSelectedValue ] = useState( 0 )
   const [ chosenCrust, setChosenCrust ] = useState( 0 )
   const [ selectedToppings, setSelectedToppings ] = useState([])
+
+  const history = useHistory()
   
   const selectOrderTopping = (selectedToppingId) => {
     // Becvause we are using checkboxes for toppings we need to
@@ -66,12 +69,15 @@ export const Menu = () => {
         return Promise.all(orderToppingsPromises)
     })
     .then(  
-      // reset the form to empty
-      () => {
-        setSelectedValue( 0 )
-        setChosenCrust( 0 )
-        setSelectedToppings([])
-      }
+      // reset the form to empty. This is great if you're staying on the page. But we want to reroute to the Orders page.
+      // () => {
+      //   setSelectedValue( 0 )
+      //   setChosenCrust( 0 )
+      //   setSelectedToppings([])
+      // }
+
+      // go to the orders page.
+      history.push("/orders")
     )
 
   }
