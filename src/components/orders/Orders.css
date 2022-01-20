@@ -1,0 +1,14 @@
+.orders__list {
+  max-width: 70%;
+}
+
+.orders__item {
+  display: flex;  
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.btn--orderDelete {
+  max-height: 30px;
+  margin-top: 1em;
+}

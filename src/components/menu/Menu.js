@@ -33,7 +33,7 @@ export const Menu = () => {
     const newOrder = {
       crustId: chosenCrust,
       sizeId: selectedValue,
-      customerId: 1,
+      customerId: parseInt(localStorage.getItem("pizza_customer")),
       timestamp: Date.now()
     }
 
