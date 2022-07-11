@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { ToppingsList } from "../toppings/ToppingsList";
 import { Crusts } from "../crusts/Crusts";
 import { Sizes } from "../sizes/Sizes";
@@ -9,7 +10,9 @@ export const Menu = () => {
   const [ selectedValue, setSelectedValue ] = useState( 0 )
   const [ chosenCrust, setChosenCrust ] = useState( 0 )
   const [ selectedToppings, setSelectedToppings ] = useState([])
-  
+
+  const history = useHistory()
+
   const selectOrderTopping = (selectedToppingId) => {
     // Becvause we are using checkboxes for toppings we need to
     // decide whether to add or remove a topping id from our selectedToppings state
@@ -26,15 +29,15 @@ export const Menu = () => {
   }
 
   const submitOrder = () => {
-
+    const currentUser = JSON.parse(localStorage.getItem("pizza_user"))
     const newOrder = {
       crustId: chosenCrust,
       sizeId: selectedValue,
-      customerId: 1,
+      customerId: parseInt(currentUser.id),
       timestamp: Date.now()
     }
 
-    // Add the order obj to the db. 
+    // Add the order obj to the db.
     fetch(
       "http://localhost:8088/orders",
       {
@@ -65,13 +68,18 @@ export const Menu = () => {
         // That .then will not call its callback func until ALL the Promises have resolved.
         return Promise.all(orderToppingsPromises)
     })
-    .then(  
-      // reset the form to empty
-      () => {
-        setSelectedValue( 0 )
-        setChosenCrust( 0 )
-        setSelectedToppings([])
-      }
+    .then(
+      // reset the form to empty if we are staying on this page.
+      // In this version of the app we are not, so no need to do this.
+      // Might come in handy for you at some point, though!
+      // () => {
+      //   setSelectedValue( 0 )
+      //   setChosenCrust( 0 )
+      //   setSelectedToppings([])
+      // }
+
+      // Instead, once an order is placed, re-route to a different view ( render a different component based on the URL)
+      history.push("/orders")
     )
 
   }

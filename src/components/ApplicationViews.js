@@ -10,10 +10,10 @@ export const ApplicationViews = () => {
         <Menu />
       </Route>
       <Route path="/menu">
-          <Menu />
+        <Menu />
       </Route>
       <Route path="/orders">
-          <Orders />
+        <Orders />
       </Route>
     </>
   )
