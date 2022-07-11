@@ -1,39 +1,34 @@
-import React, { useRef, useState } from "react"
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom"
+import React, { useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css"
 
 export const Login = () => {
     const [email, set] = useState("")
-    const existDialog = useRef()
-    const history = useHistory()
-
-    const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/users?email=${email}`)
-            .then(res => res.json())
-            .then(user => user.length ? user[0] : false)
-    }
+    const navigate = useNavigate()
 
     const handleLogin = (e) => {
         e.preventDefault()
-        existingUserCheck()
-            .then(exists => {
-                if (exists) {
-                    localStorage.setItem("pizza_user", JSON.stringify({id: exists.id, staff: exists.isStaff}))
-                    history.push("/")
-                } else {
-                    existDialog.current.showModal()
+
+        return fetch(`http://localhost:8088/users?email=${email}`)
+            .then(res => res.json())
+            .then(foundUsers => {
+                if (foundUsers.length === 1) {
+                    const user = foundUsers[0]
+                    localStorage.setItem("pizza_user", JSON.stringify({
+                        id: user.id,
+                        staff: user.isStaff
+                    }))
+
+                    navigate(user.isStaff ? "/orders" : "/menu")
+                }
+                else {
+                    window.alert("Invalid login")
                 }
             })
     }
 
     return (
         <main className="container--login">
-            <dialog className="dialog dialog--auth" ref={existDialog}>
-                <div>User does not exist</div>
-                <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
-            </dialog>
-
             <section>
                 <form className="form--login" onSubmit={handleLogin}>
                     <h1>Mama Leoni's Pizza Parlor</h1>

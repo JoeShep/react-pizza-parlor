@@ -10,7 +10,8 @@ export const Orders = () => {
   // display all the orders
 
   useEffect( () => {
-    fetch("http://localhost:8088/orders?_expand=crust&_expand=size")
+    const filterByUser = currentUser.staff ? "" : `&customerId=${currentUser.id}`
+    fetch(`http://localhost:8088/orders?_expand=crust&_expand=size${filterByUser}`)
     .then( (ordersData) => ordersData.json())
     .then( (ordersArr) => setOrders(ordersArr))
   }, [])

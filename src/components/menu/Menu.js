@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import { useavigate, useNavigate } from "react-router-dom";
 import { ToppingsList } from "../toppings/ToppingsList";
 import { Crusts } from "../crusts/Crusts";
 import { Sizes } from "../sizes/Sizes";
@@ -11,10 +11,10 @@ export const Menu = () => {
   const [ chosenCrust, setChosenCrust ] = useState( 0 )
   const [ selectedToppings, setSelectedToppings ] = useState([])
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const selectOrderTopping = (selectedToppingId) => {
-    // Becvause we are using checkboxes for toppings we need to
+    // Because we are using checkboxes for toppings we need to
     // decide whether to add or remove a topping id from our selectedToppings state
     // Add it if the user is selecting it, remove it if the user is deselecting it.
     // If the id is already there, then remove it. If it's not there, add it
@@ -79,7 +79,8 @@ export const Menu = () => {
       // }
 
       // Instead, once an order is placed, re-route to a different view ( render a different component based on the URL)
-      history.push("/orders")
+      // history.push("/orders")
+      navigate("/orders")
     )
 
   }

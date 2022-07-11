@@ -1,12 +1,17 @@
-import React, { useRef, useState } from "react"
-import { useHistory } from "react-router-dom"
+import { useState, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
 export const Register = (props) => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({
+        name: "",
+        address: "",
+        email: "",
+        isStaff: false
+    })
     const conflictDialog = useRef()
 
-    const history = useHistory()
+    let navigate = useNavigate()
 
     const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?email=${user.email}`)
@@ -29,7 +34,7 @@ export const Register = (props) => {
                         .then(createdUser => {
                             if (createdUser.hasOwnProperty("id")) {
                                 localStorage.setItem("pizza_user", JSON.stringify({id: createdUser.id, staff: createdUser.isStaff}))
-                                history.push("/")
+                                navigate(createdUser.isStaff ? "/orders" : "/menu")
                             }
                         })
                 }
