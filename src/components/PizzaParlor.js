@@ -7,7 +7,8 @@ import { Register } from "./auth/Register";
 import "./PizzaParlor.css"
 
 export const PizzaParlor = () => {
-  return <Routes>
+  return (
+    <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
@@ -19,6 +20,6 @@ export const PizzaParlor = () => {
           </>
         </Authorized>
       }/>
-
     </Routes>
+  )
 }

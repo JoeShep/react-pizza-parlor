@@ -7,7 +7,7 @@ import { OrderButton } from "./OrderButton"
 import "./Menu.css"
 
 export const Menu = () => {
-  const [ selectedValue, setSelectedValue ] = useState( 0 )
+  const [ selectedSize, setSelectedSize ] = useState( 0 )
   const [ chosenCrust, setChosenCrust ] = useState( 0 )
   const [ selectedToppings, setSelectedToppings ] = useState([])
 
@@ -32,7 +32,7 @@ export const Menu = () => {
     const currentUser = JSON.parse(localStorage.getItem("pizza_user"))
     const newOrder = {
       crustId: chosenCrust,
-      sizeId: selectedValue,
+      sizeId: selectedSize,
       customerId: parseInt(currentUser.id),
       timestamp: Date.now()
     }
@@ -73,7 +73,7 @@ export const Menu = () => {
       // In this version of the app we are not, so no need to do this.
       // Might come in handy for you at some point, though!
       // () => {
-      //   setSelectedValue( 0 )
+      //   setSelectedSize( 0 )
       //   setChosenCrust( 0 )
       //   setSelectedToppings([])
       // }
@@ -89,7 +89,7 @@ export const Menu = () => {
     <>
       <h1 className="menuHead">Our Menu. Build the Perfect Pie for You!</h1>
       <section className="menu">
-        <Sizes selectedValue={ selectedValue } setSelectedValue={ setSelectedValue } />
+        <Sizes selectedSize={ selectedSize } setSelectedSize={ setSelectedSize } />
         <Crusts chosenCrust={ chosenCrust} changeSelectedCrust={ setChosenCrust }/>
         <ToppingsList selectedToppings={selectedToppings} selectOrderTopping={ selectOrderTopping }/>
 
